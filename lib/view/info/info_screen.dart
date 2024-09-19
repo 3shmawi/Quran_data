@@ -245,7 +245,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   provider.isEnglish()
                       ? 'Experienced Information Technology Specialist with a demonstrated history of working in the computer software industry. Skilled in Mobile Application Development, IT Service Management, and Volunteering'
                       : "متخصص في تكنولوجيا المعلومات من ذوي الخبرة ولدي تاريخ مثبت في العمل في صناعة برامج الكمبيوتر. ماهر في تطوير تطبيقات الهاتف المحمول، وإدارة خدمات تكنولوجيا المعلومات ، والعمل التطوعي",
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: provider.isDarkTheme()
                             ? ThemeDataProvider.textDarkThemeColor
                             : ThemeDataProvider.textLightThemeColor,
@@ -377,7 +377,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   provider.isEnglish()
                       ? 'The application of the Holy Qur’an helps you to read the surahs and verses wherever you go and remember the times of prayer with determining the direction of the qiblah. There is also our Holy Qur’an radio station. We also give you the possibility to glorify God and display hadiths and remembrances.'
                       : "تطبيق القرآن الكريم يساعدك على قرآه السور والايات أينما ذهبت وتذكر مواعيد الصلاه مع تحديد اتجاه القبله كما أنه يوجد اذاعه القرآن الكريم الخاصه بنا كما نتيح لكم امكانيه تسبيح الله وعرض الاحاديث والاذكار",
-                  style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: provider.isDarkTheme()
                             ? ThemeDataProvider.textDarkThemeColor
                             : ThemeDataProvider.textLightThemeColor,

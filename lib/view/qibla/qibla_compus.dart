@@ -20,6 +20,7 @@ class QiblahCompass extends StatefulWidget {
 class _QiblahCompassState extends State<QiblahCompass> {
   // ignore: prefer_typing_uninitialized_variables
   var futureAlbum;
+
   @override
   void initState() {
     futureAlbum = Provider.of<AppController>(context, listen: false)

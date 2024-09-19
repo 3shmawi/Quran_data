@@ -20,14 +20,17 @@ class ThemeDataProvider {
     bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.white, modalBackgroundColor: Colors.white),
     appBarTheme: const AppBarTheme(
-        titleTextStyle: TextStyle(color: textLightThemeColor)),
+      titleTextStyle: TextStyle(color: textLightThemeColor),
+    ),
     bottomAppBarTheme: const BottomAppBarTheme(
       color: primaryLightThemeColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(primaryLightThemeColor),
-        minimumSize: MaterialStateProperty.all(const Size(150, 40)),
+        minimumSize: MaterialStateProperty.all(
+          const Size(150, 40),
+        ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),
@@ -56,7 +59,9 @@ class ThemeDataProvider {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(primaryDarkThemeColor),
-        minimumSize: MaterialStateProperty.all(const Size(150, 40)),
+        minimumSize: MaterialStateProperty.all(
+          const Size(150, 40),
+        ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0),

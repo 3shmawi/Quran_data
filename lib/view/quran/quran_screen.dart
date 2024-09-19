@@ -10,6 +10,8 @@ import 'package:quran/view/info/info_screen.dart';
 import 'package:quran/view/quran/surah_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/reverse_timer.dart';
+
 class QuranScreen extends StatefulWidget {
   static const String routeName = "quran-screen";
 
@@ -45,17 +47,16 @@ class _QuranScreenState extends State<QuranScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: MediaQuery.of(context).size.width > 1000
-                  ? provider.isDarkTheme()
-                      ? const AssetImage(
-                          ThemeDataProvider.imageBackgroundDarkWeb)
-                      : const AssetImage(
-                          ThemeDataProvider.imageBackgroundLightWeb)
-                  : provider.isDarkTheme()
-                      ? const AssetImage(ThemeDataProvider.imageBackgroundDark)
-                      : const AssetImage(
-                          ThemeDataProvider.imageBackgroundLight),
-              fit: BoxFit.cover),
+            image: MediaQuery.of(context).size.width > 1000
+                ? provider.isDarkTheme()
+                    ? const AssetImage(ThemeDataProvider.imageBackgroundDarkWeb)
+                    : const AssetImage(
+                        ThemeDataProvider.imageBackgroundLightWeb)
+                : provider.isDarkTheme()
+                    ? const AssetImage(ThemeDataProvider.imageBackgroundDark)
+                    : const AssetImage(ThemeDataProvider.imageBackgroundLight),
+            fit: BoxFit.cover,
+          ),
         ),
         child: Column(
           children: [
@@ -171,6 +172,9 @@ class _QuranScreenState extends State<QuranScreen> {
                             const Spacer(),
                             const Spacer(),
                             const Spacer(),
+                            const Spacer(),
+                            const Spacer(),
+                            const Spacer(),
                           ],
                         ),
                       );
@@ -181,7 +185,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   },
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.21,
+                  top: MediaQuery.of(context).size.height * 0.16,
                   child: FutureBuilder<AdhanModel>(
                     future: futureAlbum,
                     builder: (context, snapshot) {
@@ -210,66 +214,83 @@ class _QuranScreenState extends State<QuranScreen> {
                           snapshot.data!.data!.timings!.firstthird!,
                           snapshot.data!.data!.timings!.lastthird!,
                         ];
+                        List<String> froud = [
+                          snapshot.data!.data!.timings!.fajr!,
+                          snapshot.data!.data!.timings!.dhuhr!,
+                          snapshot.data!.data!.timings!.asr!,
+                          snapshot.data!.data!.timings!.maghrib!,
+                          snapshot.data!.data!.timings!.isha!,
+                        ];
+
                         return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                  padding:
-                                      const EdgeInsets.only(right: 5, left: 5),
-                                  height: 80,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.95,
-                                  child: ListView.builder(
-                                    itemCount: names.length,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, i) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 5),
-                                        child: Container(
-                                          width: 80.0,
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent
-                                                .withOpacity(0.5),
-                                            borderRadius:
-                                                BorderRadius.circular(25),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ReverseTimer(
+                              targetTime: TimeOfDay(
+                                hour: int.parse(
+                                  froud[getIndex(froud)].substring(0, 2),
+                                ),
+                                minute: int.parse(
+                                  froud[getIndex(froud)].substring(3, 5),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(right: 5, left: 5),
+                              height: 80,
+                              width: MediaQuery.of(context).size.width * 0.95,
+                              child: ListView.builder(
+                                itemCount: names.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, i) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: Container(
+                                      width: 80.0,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Colors.transparent.withOpacity(0.5),
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            names[i],
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                names[i],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                isRTL
-                                                    ? arabicNumber.convert(
-                                                        times[i],
-                                                      )
-                                                    : times[i],
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: ThemeDataProvider
-                                                      .mainAppColor,
-                                                ),
-                                              )
-                                            ],
+                                          const SizedBox(
+                                            height: 5,
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  )),
-                            ]);
+                                          Text(
+                                            isRTL
+                                                ? arabicNumber.convert(
+                                                    times[i],
+                                                  )
+                                                : times[i],
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              color: ThemeDataProvider
+                                                  .mainAppColor,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
                       } else if (snapshot.hasError) {
                         return Text("${snapshot.error}");
                       }
@@ -307,5 +328,14 @@ class _QuranScreenState extends State<QuranScreen> {
     data = await fo.getDataFromFile('assets/content/suras_nums.txt');
     surahsVerses = data.split("\n");
     setState(() {});
+  }
+
+  int getIndex(List<String> times) {
+    for (int i = 0; i < times.length; i++) {
+      int hour = int.parse(times[i].substring(0, 2));
+
+      if (DateTime.now().hour >= hour) return i;
+    }
+    return 0;
   }
 }
